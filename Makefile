@@ -1,4 +1,3 @@
-
 all: george.multiboot temp_drive
 
 george.multiboot: start32-asm.o start32.o george.o threads.o threads-asm.o vga.o util.o idt.o isr-asm.o pic.o pit.o util-asm.o gdt.o page.o alloc.o kbd.o fpu.o pagefault.o pci.o ide.o
@@ -20,7 +19,7 @@ george.o: george.c userland/print-a-include.h userland/print-b-include.h userlan
 	x86_64-elf-gcc -c $^ -o $@ -ffreestanding -mno-red-zone -Wall -Wextra -std=c99 -O2 -g
 
 userland/%.o: userland/%.c
-	x86_64-elf-gcc -c $^ -o $@ -ffreestanding -Wall -Wextra -Wno-main -std=c99 -O2
+	x86_64-elf-gcc -c $^ -o $@ -ffreestanding -fconserve-stack -Wall -Wextra -Wno-main -std=c99 -O2
 
 userland/startup.o: userland/startup.s
 	x86_64-elf-as $^ -o $@
